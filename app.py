@@ -15,12 +15,16 @@ from settings import (
 )
 import inspect
 from utils import send_error, send_success, send_validation_errors
-from notification_clients import TwitterClient, SlackClient, EmailClient
+from notification_clients import (
+    TwitterClient,
+    SlackClient,
+    EmailClient
+)
 from models import Notification
 import os
 
 import logging
-logger = logging.getLogger('groot_credits_service')
+logger = logging.getLogger('groot_notification_service')
 logging.basicConfig(level="INFO")
 
 app = Flask(__name__)
@@ -77,7 +81,10 @@ def post_notification():
                 )
             )
             return send_error(
-                'Error sending notification to {}'.format(service['name'], 500)
+                'Error sending notification to {}: {}'.format(
+                    service['name'], e
+                ),
+                500
             )
 
     return send_success('Notification(s) sent')

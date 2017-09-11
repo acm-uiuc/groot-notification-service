@@ -12,6 +12,8 @@ from smtplib import SMTP
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from exceptions import ClientException
+
 
 class EmailClient:
     def __init__(self, host=None, port=None, username=None, password=None):
@@ -21,6 +23,11 @@ class EmailClient:
         self.password = password
 
     def send(self, message, recipients=None, sender=None, subject=None):
+        if not sender.endswith('@acm.illinois.edu'):
+            raise ClientException(
+                'Invalid email. Must be an acm.illinois.edu email'
+            )
+
         conn = SMTP(host=self.host, port=self.port)
         conn.starttls()
 
