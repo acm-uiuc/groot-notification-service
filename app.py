@@ -62,12 +62,15 @@ def post_notification():
         if service['name'] not in SERVICE_CLIENTS:
             return send_error('Invalid service: {}'.format(service['name']))
         try:
+            logger.info(
+                'Sending notification through {}'.format(service['name'])
+            )
             SERVICE_CLIENTS[service['name']].send(
                 message=notification['message']
             )
         except Exception as e:
             logger.error(
-                'Exception while sending notificaiton to {}: {}'.format(
+                'Exception while sending notification to {}: {}'.format(
                     service['name'], e
                 )
             )
