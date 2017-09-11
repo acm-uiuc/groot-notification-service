@@ -61,7 +61,7 @@ Sends a message to the provided list of services / recipients
 
     ```
     {
-        "name": "slack",
+        "name": "email",
         "sender": "<SENDER_EMAIL_ADDRESS>",
         "subject": "<EMAIL_SUBJECT>",
         "recipients": [<LIST_OF_RECIPIENT_EMAIL_ADDRESSES>]
