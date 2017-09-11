@@ -1,2 +1,3 @@
 class SlackClient:
-    pass
+    def send(message, recipients=None):
+        pass

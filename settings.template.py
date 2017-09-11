@@ -16,3 +16,10 @@ MYSQL = {
 
 GROOT_SERVICES_URL = 'http://localhost:8000'
 GROOT_ACCESS_TOKEN = ''
+
+TWITTER = {
+    'consumer_key': '',
+    'consumer_secret': '',
+    'access_key': '',
+    'access_secret': ''
+}

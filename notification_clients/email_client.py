@@ -1,2 +1,3 @@
 class EmailClient:
-    pass
+    def send(message, recipients=None, sender=None):
+        pass
