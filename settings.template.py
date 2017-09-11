@@ -7,13 +7,6 @@ Illinois/NCSA Open Source License.  You should have received a copy of
 this license in a file with the distribution.
 '''
 
-MYSQL = {
-    'user': '',
-    'password': '',
-    'host': 'localhost',
-    'dbname': 'groot_notification_service'
-}
-
 GROOT_SERVICES_URL = 'http://localhost:8000'
 GROOT_ACCESS_TOKEN = ''
 

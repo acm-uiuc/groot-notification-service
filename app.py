@@ -9,7 +9,6 @@ this license in a file with the distribution.
 
 from flask import Flask, request
 from settings import (
-    MYSQL,
     TWITTER as TWITTER_CREDENTIALS,
     SLACK_API_TOKEN,
     EMAIL as EMAIL_CREDENTIALS
@@ -25,13 +24,6 @@ logger = logging.getLogger('groot_credits_service')
 logging.basicConfig(level="INFO")
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/{}'.format(
-    MYSQL['user'],
-    MYSQL['password'],
-    MYSQL['host'],
-    MYSQL['dbname']
-)
 app.config['JSONIFY_MIMETYPE'] = 'application/json; charset=UTF-8'
 
 PORT = 1122

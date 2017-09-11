@@ -9,7 +9,7 @@ this license in a file with the distribution.
 
 from flask import make_response, jsonify
 import logging
-logger = logging.getLogger('groot_credits_service.utils')
+logger = logging.getLogger('groot_notification_service.utils')
 
 
 def send_error(message, code=400):
