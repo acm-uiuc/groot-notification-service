@@ -23,3 +23,12 @@ TWITTER = {
     'access_key': '',
     'access_secret': ''
 }
+
+SLACK_API_TOKEN = ''
+
+EMAIL = {
+    'host': '',
+    'port': '',
+    'username': '',
+    'password': ''
+}

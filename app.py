@@ -8,7 +8,12 @@ this license in a file with the distribution.
 '''
 
 from flask import Flask, request
-from settings import MYSQL, TWITTER as TWITTER_CREDENTIALS, SLACK_API_TOKEN
+from settings import (
+    MYSQL,
+    TWITTER as TWITTER_CREDENTIALS,
+    SLACK_API_TOKEN,
+    EMAIL as EMAIL_CREDENTIALS
+)
 from utils import send_error, send_success, send_validation_errors
 from notification_clients import TwitterClient, SlackClient, EmailClient
 from models import Notification
@@ -33,7 +38,7 @@ DEBUG = os.environ.get('NOTIFICATION_DEBUG', False)
 
 SERVICE_CLIENTS = {
     'slack': SlackClient(SLACK_API_TOKEN),
-    'email': EmailClient(),
+    'email': EmailClient(**EMAIL_CREDENTIALS),
     'twitter': TwitterClient(**TWITTER_CREDENTIALS)
 }
 
