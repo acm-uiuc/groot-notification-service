@@ -8,7 +8,7 @@ this license in a file with the distribution.
 '''
 
 from flask import Flask, request
-from settings import MYSQL, TWITTER as TWITTER_CREDENTIALS
+from settings import MYSQL, TWITTER as TWITTER_CREDENTIALS, SLACK_API_TOKEN
 from utils import send_error, send_success, send_validation_errors
 from notification_clients import TwitterClient, SlackClient, EmailClient
 from models import Notification
@@ -32,7 +32,7 @@ PORT = 1122
 DEBUG = os.environ.get('NOTIFICATION_DEBUG', False)
 
 SERVICE_CLIENTS = {
-    'slack': SlackClient(),
+    'slack': SlackClient(SLACK_API_TOKEN),
     'email': EmailClient(),
     'twitter': TwitterClient(**TWITTER_CREDENTIALS)
 }
@@ -66,7 +66,9 @@ def post_notification():
                     service['name'], e
                 )
             )
-            return send_error('Error sending notification.', 500)
+            return send_error(
+                'Error sending notification to {}'.format(service['name'], 500)
+            )
 
     return send_success('Notification(s) sent')
 
