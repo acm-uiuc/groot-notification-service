@@ -14,6 +14,7 @@ from settings import (
     SLACK_API_TOKEN,
     EMAIL as EMAIL_CREDENTIALS
 )
+import inspect
 from utils import send_error, send_success, send_validation_errors
 from notification_clients import TwitterClient, SlackClient, EmailClient
 from models import Notification
@@ -61,12 +62,21 @@ def post_notification():
     for service in notification['services']:
         if service['name'] not in SERVICE_CLIENTS:
             return send_error('Invalid service: {}'.format(service['name']))
+
+        send_func = SERVICE_CLIENTS[service['name']].send
+        for key in service.keys():
+            if key != 'name' and key not in inspect.getargspec(send_func)[0]:
+                return send_error('Invalid key for service "{}": {}'.format(
+                    service['name'], key)
+                )
+
         try:
             logger.info(
                 'Sending notification through {}'.format(service['name'])
             )
-            SERVICE_CLIENTS[service['name']].send(
-                message=notification['message']
+            send_func(
+                message=notification['message'],
+                **{k: v for k, v in service.items() if k != 'name'}
             )
         except Exception as e:
             logger.error(
