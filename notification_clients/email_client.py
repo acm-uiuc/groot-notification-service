@@ -22,7 +22,12 @@ class EmailClient:
         self.username = username
         self.password = password
 
-    def send(self, message, recipients=None, sender=None, subject=None):
+    def send(self,
+             message,
+             recipients=None,
+             sender=None,
+             subject=None,
+             mimetype='plain'):
         if not sender.endswith('@acm.illinois.edu'):
             raise ClientException(
                 'Invalid email. Must be an acm.illinois.edu email'
@@ -37,7 +42,7 @@ class EmailClient:
         email_message = MIMEMultipart()
         email_message['From'] = sender
         email_message['Subject'] = subject
-        email_message.attach(MIMEText(message))
+        email_message.attach(MIMEText(message, mimetype))
 
         for recipient in recipients:
             email_message['To'] = recipient
